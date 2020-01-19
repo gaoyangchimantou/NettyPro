@@ -1,4 +1,4 @@
-package com.bfsu.codec2;
+package com.bfsu.protocoltcp;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -29,8 +29,11 @@ public class NettyClient {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast("encoder",new ProtobufEncoder());
-                            pipeline.addLast(new NettyClientHandler()); //加入自己的处理器
+                           /* pipeline.addLast("encoder",new ProtobufEncoder());
+                            pipeline.addLast(new NettyClientHandler()); //加入自己的处理器*/
+                            pipeline.addLast(new MyMessageEncoder());
+                            pipeline.addLast(new MyClientHandler());
+
                         }
                     });
 
